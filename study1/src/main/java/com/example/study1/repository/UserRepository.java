@@ -10,10 +10,5 @@ import java.util.Optional;
 @Repository
 public interface UserRepository extends JpaRepository<User,Long> {
 // User는 어떤 object에 대한 repository인지, Long은 key의 data-type
-
-    Optional<User> findByAccount(String account);
-
-    Optional<User> findByEmail(String email);
-
-    Optional<User> findByAccountAndEmail(String account, String email);
+    User findFirstByPhoneNumberOrderByIdDesc(String phoneNumber);
 }
