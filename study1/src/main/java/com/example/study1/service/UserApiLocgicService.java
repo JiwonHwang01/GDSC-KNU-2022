@@ -10,6 +10,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.Optional;
 
 @Service
 public class UserApiLocgicService implements CrudInterface<UserApiRequest, UserApiResponse> {
@@ -43,11 +44,36 @@ public class UserApiLocgicService implements CrudInterface<UserApiRequest, UserA
 
     @Override
     public Header<UserApiResponse> read(Long id) {
-        return null;
+        // id -> repository getOne, getById
+        return userRepository.findById(id)
+                .map(user -> response(user))
+                .orElseGet(
+                        ()->Header.ERROR("데이터 없음")
+                );
     }
 
     @Override
     public Header<UserApiResponse> update(Header<UserApiRequest> request) {
+        // 1. data
+        UserApiRequest userApiRequest = request.getData();
+
+        // 2. id -> user 찾기
+        Optional<User> optional = userRepository.findById(userApiRequest.getId());
+
+        // 3. update
+        return optional.map(user -> {
+            user.setAccount(user.getAccount())
+                    .setPassword(user.getPassword())
+                    .setStatus(user.getStatus())
+                    .setPhoneNumber(user.getPhoneNumber())
+                    .setEmail(user.getEmail())
+                    .setRegisteredAt(user.getRegisteredAt())
+                    .setUnregisteredAt(user.getUnregisteredAt())
+                    ;
+            return user;
+        })
+
+        // 4. userApi
         return null;
     }
 

@@ -9,6 +9,8 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Optional;
+
 @Slf4j
 @RestController
 @RequestMapping("api/user")
@@ -26,14 +28,16 @@ public class UserApiController implements CrudInterface<UserApiRequest, UserApiR
 
     @Override
     @GetMapping("{id}")
-    public Header<UserApiResponse>  read(Long id) {
-        return null;
+    public Header<UserApiResponse>  read(@PathVariable(name = "id") Long id) {
+        log.info("read id : {}",id);
+        return userApiLocgicService.read(id);
     }
 
     @Override
     @PutMapping("")
     public Header<UserApiResponse>  update(@RequestBody Header<UserApiRequest> request) {
-        return null;
+
+        return userApiLocgicService.update(request);
     }
 
     @Override
