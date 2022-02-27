@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.Optional;
 
 @Service
-public class UserApiLocgicService implements CrudInterface<UserApiRequest, UserApiResponse> {
+public class UserApiLogicService implements CrudInterface<UserApiRequest, UserApiResponse> {
 
     @Autowired
     private UserRepository userRepository;
@@ -62,24 +62,37 @@ public class UserApiLocgicService implements CrudInterface<UserApiRequest, UserA
 
         // 3. update
         return optional.map(user -> {
-            user.setAccount(user.getAccount())
-                    .setPassword(user.getPassword())
-                    .setStatus(user.getStatus())
-                    .setPhoneNumber(user.getPhoneNumber())
-                    .setEmail(user.getEmail())
-                    .setRegisteredAt(user.getRegisteredAt())
-                    .setUnregisteredAt(user.getUnregisteredAt())
+            user.setAccount(userApiRequest.getAccount())
+                    .setPassword(userApiRequest.getPassword())
+                    .setStatus(userApiRequest.getStatus())
+                    .setPhoneNumber(userApiRequest.getPhoneNumber())
+                    .setEmail(userApiRequest.getEmail())
+                    .setRegisteredAt(userApiRequest.getRegisteredAt())
+                    .setUnregisteredAt(userApiRequest.getUnregisteredAt())
                     ;
             return user;
         })
+        .map(user -> userRepository.save(user))
+        .map(updateUser -> response(updateUser))
+        .orElseGet(() -> Header.ERROR("데이터 없음"));
 
         // 4. userApi
-        return null;
+
     }
 
     @Override
-    public Header<UserApiResponse> delete(Long id) {
-        return null;
+    public Header delete(Long id) {
+        // 1. id -> repository -> user
+        Optional<User> optional = userRepository.findById(id);
+
+        // 2. repository -> delete
+        return optional.map(user ->{
+            userRepository.delete(user);
+            return Header.OK();
+        })
+        .orElseGet(()->Header.ERROR("데이터 없음"));
+
+        // response return
     }
 
     private Header<UserApiResponse> response(User user){

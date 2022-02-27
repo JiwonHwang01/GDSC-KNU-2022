@@ -4,12 +4,10 @@ import com.example.study1.ifs.CrudInterface;
 import com.example.study1.model.network.Header;
 import com.example.study1.model.network.request.UserApiRequest;
 import com.example.study1.model.network.response.UserApiResponse;
-import com.example.study1.service.UserApiLocgicService;
+import com.example.study1.service.UserApiLogicService;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.Optional;
 
 @Slf4j
 @RestController
@@ -17,7 +15,7 @@ import java.util.Optional;
 public class UserApiController implements CrudInterface<UserApiRequest, UserApiResponse> {
 
     @Autowired
-    private UserApiLocgicService userApiLocgicService;
+    private UserApiLogicService userApiLocgicService;
 
     @Override
     @PostMapping("") // api/user 로 매칭
@@ -42,7 +40,8 @@ public class UserApiController implements CrudInterface<UserApiRequest, UserApiR
 
     @Override
     @DeleteMapping("{id}")
-    public Header<UserApiResponse>  delete(Long id) {
-        return null;
+    public Header<UserApiResponse>  delete(@PathVariable(name = "id") Long id) {
+        log.info("delete id :{}",id);
+        return userApiLocgicService.delete(id);
     }
 }
