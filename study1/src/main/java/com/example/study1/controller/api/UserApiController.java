@@ -15,33 +15,33 @@ import org.springframework.web.bind.annotation.*;
 public class UserApiController implements CrudInterface<UserApiRequest, UserApiResponse> {
 
     @Autowired
-    private UserApiLogicService userApiLocgicService;
+    private UserApiLogicService userApiLogicService;
 
     @Override
     @PostMapping("") // api/user 로 매칭
     public Header<UserApiResponse> create(@RequestBody Header<UserApiRequest> request) {
         log.info("{}",request);
-        return userApiLocgicService.create(request);
+        return userApiLogicService.create(request);
     }
 
     @Override
     @GetMapping("{id}")
     public Header<UserApiResponse>  read(@PathVariable(name = "id") Long id) {
         log.info("read id : {}",id);
-        return userApiLocgicService.read(id);
+        return userApiLogicService.read(id);
     }
 
     @Override
     @PutMapping("")
     public Header<UserApiResponse>  update(@RequestBody Header<UserApiRequest> request) {
 
-        return userApiLocgicService.update(request);
+        return userApiLogicService.update(request);
     }
 
     @Override
     @DeleteMapping("{id}")
     public Header<UserApiResponse>  delete(@PathVariable(name = "id") Long id) {
         log.info("delete id :{}",id);
-        return userApiLocgicService.delete(id);
+        return userApiLogicService.delete(id);
     }
 }
