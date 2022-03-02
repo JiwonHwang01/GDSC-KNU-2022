@@ -1,38 +1,37 @@
 package com.example.study1.model.network.response;
 
-import com.example.study1.model.enumclass.ItemStatus;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 @Data
-@AllArgsConstructor
 @NoArgsConstructor
+@AllArgsConstructor
 @Builder
-public class ItemApiResponse {
+public class PartnerApiResponse {
 
     private Long id;
 
-    private ItemStatus status;
-
     private String name;
 
-    private String title;
+    private String status;
 
-    private String content;
+    private String address;
 
-    private BigDecimal price;
+    private String callCenter;
 
-    private String brandName;
+    private String partnerNumber;
+
+    private String businessNumber;
+
+    private String ceoName;
 
     private LocalDateTime registeredAt;
 
     private LocalDateTime unregisteredAt;
 
-    private Long partnerId;
-
+    private Long categoryId;
 }

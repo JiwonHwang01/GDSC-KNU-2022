@@ -1,5 +1,7 @@
 package com.example.study1.model.network.response;
 
+import com.example.study1.model.enumclass.OrderGroupStatus;
+import com.example.study1.model.enumclass.OrderType;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,9 +18,9 @@ public class OrderGroupApiResponse {
 
     private Long id;
 
-    private String status;
+    private OrderGroupStatus status;
 
-    private String orderType;
+    private OrderType orderType;
 
     private String revAddress;
 
