@@ -3,6 +3,8 @@ package com.example.study1.repository;
 import com.example.study1.Study1ApplicationTests;
 import com.example.study1.model.entity.OrderDetail;
 import com.example.study1.model.entity.OrderGroup;
+import com.example.study1.model.enumclass.OrderGroupStatus;
+import com.example.study1.model.enumclass.OrderType;
 import org.apache.tomcat.jni.Local;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
@@ -21,8 +23,8 @@ public class OrderGroupRepositoryTest extends Study1ApplicationTests {
     public void create(){
 
         OrderGroup orderGroup = new OrderGroup();
-        orderGroup.setStatus("COMPLETE");
-        orderGroup.setOrderType("CARD");
+        orderGroup.setStatus(OrderGroupStatus.REGISTERED);
+        orderGroup.setOrderType(OrderType.EACH);
         orderGroup.setRevAddress("서울시 강남구");
         orderGroup.setRevName("홍길동");
         orderGroup.setPaymentType("CARD");
